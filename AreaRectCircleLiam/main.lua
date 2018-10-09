@@ -7,7 +7,7 @@
 -----------------------------------------------------------------------------------------
 
 -- create my local variables
-local areaText = 
+local areaText 
 local textSize = 50
 local myRectangle
 local widthOfRectangle = 350
@@ -47,10 +47,10 @@ areaText = display.newText("The area of this rectangle with a width of \n" ..
 	   areaOfRectangle .. " pixels².", 0, 0, Arial, textSize)
 
 -- anchor the text and set its (x,y) position
-areaText.anchorX = 0
-areaText.anchorY = 0
-areaText.x = 2
+areaText.anchorX = 150
+areaText.anchorY = 300
+areaText.x = 20
 areaText = display.contentHeight/2
 
 -- set the colour of the newText
-areaText:setTextColor(1, 1,)
+areaText:setTextColor(1, 1, 1)
