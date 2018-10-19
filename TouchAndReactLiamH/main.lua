@@ -39,6 +39,8 @@ local function BlueButtonListener(touch)
 		blueButton.isVisble = false
 		redButton.isVisible = true
 		textObject.isVisible = true
+		moneySoundChannel = audio.play(moneySound)
+
 	end
 
 	if (touch.phase == "ended") then
@@ -69,3 +71,10 @@ local checkMark = display.newImageRect("Images/checkmark.png",198, 96)
 checkMark.x = display.contentWidth/3
 checkMark.y = display.contentHeight/3
 checkMark.isVisible = false
+
+local moneySound = audio.loadSound( "Sounds/chaChing.mp3")
+local moneySoundChannel
+
+
+local moneySound = audio.loadSound( "Sounds/chaChing.mp3")
+local moneySoundChannel
