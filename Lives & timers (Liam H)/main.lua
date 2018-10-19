@@ -52,6 +52,13 @@ local function StartTimer()
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
 end
 
+
+--------------------------------
+-- object creation
+--------------------------------
+
+-- create the lives to display on the screen
+
 heart1 = display.newImageRect("Image/heart.png", 100, 100)
 heart1.x = display.contentWidth * 7 / 8
 heart1.y = display.contentHeight * 1 / 7
