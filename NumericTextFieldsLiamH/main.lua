@@ -27,10 +27,11 @@ local correctAnswer
 local randomOperator
 local incorrectAnswer
 
-local totalSeconds = 5
-local secondsLeft = 5
+local totalSeconds = 10
+local secondsLeft = 10
 local clockText
 local countDownTimer
+local gameOver
 
 local lives = 4
 local heart1
@@ -39,6 +40,7 @@ local heart3
 local heart4
 local points = 0
 local textObject
+local pointsText
 
 ----------------------------------------------------------------------
 --SOUNDS
@@ -90,6 +92,11 @@ local function HideCorrect()
 	AskQuestion()
 end
 
+local function HideIncorrect()
+	incorrectObject.isVisible = false
+	AskQuestion()
+end
+
 local function DecreaseLives()
 	if (lives == 4) then
 		heart4.isVisible = true
@@ -120,7 +127,10 @@ local function DecreaseLives()
 		heart3.isVisible = false
 		heart2.isVisible = false
 		heart1.isVisible = false
-
+		gameOver.isVisible = true
+        gameOver.x = display.contentWidth/2
+        gameOver.y = display.contentHeight/2
+        numericField.isVisible = false
 	end
 end
 
@@ -129,6 +139,7 @@ local function NumericFieldListener( event )
 
 	-- user begins editing "numericField"
 	if ( event.phase == "began" ) then
+		event.target.text = ""
 
 		-- clear text field
 		
@@ -145,6 +156,7 @@ local function NumericFieldListener( event )
 			event.target.text = ""
 			correctSoundChannel = audio.play(correctSound)
 			points = points + 1 
+			pointsText.text = " Points = " .. points
 			
 
 		-- if they get the answer wrong
@@ -153,7 +165,6 @@ local function NumericFieldListener( event )
 			timer.performWithDelay(2000, HideIncorrect)
 			event.target.text = ""
 			wrongSoundChannel = audio.play(wrongSound)
-
 			lives = lives - 1
 
 			DecreaseLives()
@@ -178,15 +189,18 @@ local function UpdateTime()
 		-- reset the number of seconds left
 		secondsLeft = totalSeconds
 		lives = lives - 1
-
-
+		DecreaseLives()
 	end
 end
+
+
 
 local function StartTimer()
 	-- create countdown timer that loops infinitely
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0)
 end
+
+
 
 
 	
@@ -219,13 +233,19 @@ numericField.inputType = "number"
 -- add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener)
 
-textObject = display.newText( "Points " .. points, 100, 25, nil, 50)
+-- display the points text
+pointsText = display.newText( "Points " .. points, 100, 25, nil, 50)
 
+-- display the text for timer
+clockText = display.newText( "Seconds left " .. totalSeconds, 200, 75, nil, 50)
 
 
 incorrectObject = display.newText( "Incorrect!", display.contentWidth/2,  display.contentHeight*2/3, nil, 50)
 incorrectObject:setTextColor(50/255, 60/255, 70/255)
 incorrectObject.isVisible = false
+
+gameOver = display.newImageRect( "Images/gameOver.png", display.contentWidth, display.contentHeight )
+gameOver.isVisible = false
 
 heart1 = display.newImageRect("Images/heart.png", 100, 100)
 heart1.x = display.contentWidth * 7 / 8
@@ -252,4 +272,6 @@ heart4.y = display.contentHeight * 1 / 7
 
 
 AskQuestion()
-
+HideIncorrect()
+UpdateTime()
+StartTimer()
