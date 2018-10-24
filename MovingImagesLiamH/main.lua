@@ -41,3 +41,8 @@ rocketship.alpha = 1
 rocketship.x = 1
 rocketship.y = display.contentHeight/3
 rocketship.alpha = rocketship.alpha 
+
+local backgroundSound = audio.loadSound( "Sounds/background.mp3")
+local backgroundSoundChannel
+backgroundSoundChannel = audio.play(backgroundSound)
+
