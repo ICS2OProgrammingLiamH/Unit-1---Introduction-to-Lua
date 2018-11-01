@@ -103,24 +103,29 @@ local function DecreaseLives()
 		heart3.isVisible = true
 		heart2.isVisible = true
 		heart1.isVisible = true
+		AskQuestion()
 			
 	elseif (lives == 3) then
 		heart4.isVisible = false
 		heart3.isVisible = true
 		heart2.isVisible = true
 		heart1.isVisible = true
+		AskQuestion()
 
 	elseif (lives == 2) then
 		heart4.isVisible = false
 		heart3.isVisible = false
 		heart2.isVisible = true
 		heart1.isVisible = true
+		AskQuestion()
 
 	elseif (lives == 1) then
 		heart4.isVisible = false
 		heart3.isVisible = false
 		heart2.isVisible = false
 		heart1.isVisible = true
+		AskQuestion()
+	
 
 	elseif (lives == 0) then
 		heart4.isVisible = false
@@ -131,6 +136,7 @@ local function DecreaseLives()
         gameOver.x = display.contentWidth/2
         gameOver.y = display.contentHeight/2
         numericField.isVisible = false
+        AskQuestion()
 	end
 end
 

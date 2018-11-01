@@ -10,6 +10,12 @@ display.setDefault ("background", 250/255, 50/255, 0/255)
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
 
+local PoppingSound = audio.loadSound( "Sounds/ChaChing.mp3")
+local PoppingSoundChannel
+PoppingSoundChannel = audio.play(PoppingSound)
+local checkmark = display.newImageRect("Images/checkmark.png", 300, 300)
+checkmark.isVisible = false
+
 -- create blue button, set its position and make it visible
 local blueButton = display.newImageRect("Images/Fast Button Inactive@2x.png",198, 96)
 blueButton.x = display.contentWidth/2
@@ -76,5 +82,15 @@ local moneySound = audio.loadSound( "Sounds/chaChing.mp3")
 local moneySoundChannel
 
 
-local moneySound = audio.loadSound( "Sounds/chaChing.mp3")
-local moneySoundChannel
+local function PoppingListener(touch)
+
+	if (touch.phase == "began") then 
+		audio.play(PoppingSound)
+		checkmark.isVisible = true
+
+	if (touch.phase == "ended") then 
+		checkmark.isVisible = false
+	end
+end
+
+PoppingListener()
